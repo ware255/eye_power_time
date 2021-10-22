@@ -12,6 +12,7 @@ public:
 	senpai() : num{}, zi{}, hun{} {
 		::SetConsoleTitle(TEXT("–Ú—ÍŒv"));
 	};
+	~senpai() {};
 
 	void setting();
 };
@@ -29,23 +30,25 @@ void sokutei(int hou, int mini) {
 			exit(-1);
 		}
 
-		if (hou == local.tm_hour && mini == local.tm_min) {
-			break;
-		}
+		if (hou == local.tm_hour && mini == local.tm_min)break;
+
 		//Sleep(100);
 	}
-	PlaySound("–Ú—Íæ”yBB.wav", NULL, SND_FILENAME | SND_SYNC | SND_LOOP);
+	PlaySound("–Ú—Íæ”yBB.wav", nullptr, SND_FILENAME | SND_SYNC | SND_LOOP);
 }
 
-void senpai::setting() {
+void senpai::setting()
+{
+	void(*F_sokutei)(int, int) = &sokutei;
 	std::cout << "‹N‚«‚½‚¢ŠÔ‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B" << std::endl;
 	std::cout << "“ü—Í—á:XX XX >> ";
 	std::cin >> zi >> hun;
 
-	sokutei(zi, hun);
+	(*F_sokutei)(zi, hun);
 }
 
-int main() {
+int main()
+{
 	senpai TIME_;
 	TIME_.setting();
 
